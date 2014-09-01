@@ -1,0 +1,85 @@
+# Allow braces or no braces around has parameters
+# It would be nice if multiline required braces
+# and single line required no braces. Text editors
+# handle indendation better with the braces.
+#   Examples:
+#     user = User.new(name: "Brian")
+#     user = User.new({
+#       name:  "Brian",
+#       email: "brian@codelation.com"
+#     })
+BracesAroundHashParameters:
+  Enabled: false
+
+# Preferred collection methods
+CollectionMethods:
+  PreferredMethods:
+    collect: "map"
+    collect!: "map!"
+    inject: "reduce"
+    detect: "find"
+    find_all: "select"
+
+# No hash rockets
+#   Good: { hello: "world" }
+#   Bad:  { :hello => "world" }
+HashSyntax:
+  EnforcedStyle: ruby19
+
+# Allow empty lines at start/end of class definitions
+#   Example:
+#     class User
+#
+#       def save
+#       end
+#
+#     end
+EmptyLinesAroundBody:
+  Enabled: false
+
+# Don't complain so much about line length
+# Try to stay under 100, but especially under 120
+# 120 still fits well on a 13" MacBook
+LineLength:
+  Max: 120
+
+# Allow more than one space before a method's first argument
+# To allow lining up method calls
+#   Example:
+#     t.string  :name
+#     t.integer :login_count
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+# Force no space for block braces:
+#   Good: array.map{|item| item.title }
+#   Bad:  array.map {|item| item.title }
+SpaceBeforeBlockBraces:
+  Enabled: false
+
+# Force a space inside block braces:
+#   Good: array.map{|item| item.title }
+#   Bad:  array.map {|item| item.title}
+#
+# Force no space before block parameters
+#   Good: array.map{|item| item.title }
+#   Bad:  array.map{ |item| item.title }
+SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  SpaceBeforeBlockParameters: false
+
+# Double quotes on string literals
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+# checks for a new line at the end of a file
+TrailingBlankLines:
+  EnforcedStyle: final_newline
+
+# false for soft tabs
+Tab:
+  Enabled: false
+
+# Enforces snake_case variable names
+VariableName:
+  EnforcedStyle: snake_case
