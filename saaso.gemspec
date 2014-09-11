@@ -16,8 +16,10 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
+  s.add_dependency "cancancan", "~> 1.9.2"
   s.add_dependency "devise", "~> 3.2.4"
   s.add_dependency "omniauth-github", "~> 1.1.2"
+  s.add_dependency "money-rails", "~> 0.12.0"
   s.add_dependency "rails", "~> 4.1.5"
 
   s.add_development_dependency "sqlite3"

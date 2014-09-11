@@ -1,12 +1,8 @@
 module Saaso
   class Organization < ActiveRecord::Base
-    belongs_to :owner,
-      class_name:  "Saaso::User",
-      foreign_key: :user_id
+    include Saaso::Subscriber
 
-    has_and_belongs_to_many :admins,
-      class_name: "Saaso::User"
-
+    belongs_to :owner, class_name: "Saaso::User"
     has_many :admin_invitations
 
     # Returns a Time-like class with the

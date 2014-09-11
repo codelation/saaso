@@ -2,16 +2,15 @@
 
 FactoryGirl.define do
   factory :user, class: "Saaso::User" do
-    name      { Faker::Name.name }
     email     { Faker::Internet.email }
-    password  "hello world"
+    name      { Faker::Name.first_name }
+    password  "password123"
     time_zone { Faker::Address.time_zone }
 
-    # Company Admin
-    factory :admin_user do
-      after(:create) do |user|
-        user.administered_organizations = [create(:organization)]
-      end
+    plan_id { create(:plan).id }
+
+    trait :with_organization_name do
+      organization_name "Super Awesome Organization Name, LLC."
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829215633) do
+ActiveRecord::Schema.define(version: 20140911165235) do
 
   create_table "saaso_admin_invitations", force: true do |t|
     t.datetime "accepted_at"
@@ -23,21 +23,57 @@ ActiveRecord::Schema.define(version: 20140829215633) do
 
   add_index "saaso_admin_invitations", ["token"], name: "index_saaso_admin_invitations_on_token", unique: true
 
-  create_table "saaso_organizations", force: true do |t|
+  create_table "saaso_organization_memberships", force: true do |t|
+    t.integer  "organization_id"
     t.integer  "user_id"
+    t.integer  "organization_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "saaso_organization_roles", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "saaso_organizations", force: true do |t|
+    t.integer  "owner_id"
     t.string   "name"
     t.string   "time_zone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "saaso_organizations_users", force: true do |t|
-    t.integer "organization_id"
-    t.integer "user_id"
+  add_index "saaso_organizations", ["owner_id"], name: "index_saaso_organizations_on_owner_id"
+
+  create_table "saaso_plans", force: true do |t|
+    t.string   "name"
+    t.boolean  "active",            default: false
+    t.integer  "price_cents",       default: 0,     null: false
+    t.string   "price_currency",    default: "USD", null: false
+    t.integer  "interval",          default: 0
+    t.integer  "interval_count"
+    t.integer  "trial_period_days"
+    t.string   "reference_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "saaso_organizations_users", ["organization_id"], name: "index_saaso_organizations_users_on_organization_id"
-  add_index "saaso_organizations_users", ["user_id"], name: "index_saaso_organizations_users_on_user_id"
+  create_table "saaso_subscriptions", force: true do |t|
+    t.integer  "plan_id"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.datetime "trial_ends_at"
+    t.datetime "current_period_start"
+    t.datetime "current_period_end"
+    t.boolean  "cancel_at_period_end", default: true
+    t.datetime "canceled_at"
+    t.datetime "ended_at"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "saaso_subscriptions", ["plan_id"], name: "index_saaso_subscriptions_on_plan_id"
 
   create_table "saaso_users", force: true do |t|
     t.string   "name"
